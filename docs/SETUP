@@ -1,0 +1,24 @@
+Setup
+=====
+
+Prepare this configuration for your installed NixOS system, then build and apply
+it.
+
+Use the installed target system and its existing normal account. Preserve the actual
+hardware module, boot disk settings and system.stateVersion baseline. Never substitute
+another machine's filesystem identifiers.
+
+Review hosts/desktop/settings.nix and the supplied modules. Prepare a new writable
+checkout using bash scripts/prepare.sh; use --help for required hardware, boot
+mode and compatibility-baseline arguments. The baseline must match the installed
+system. Preparation locks dependencies without activation. Then use the
+check/build/apply commands below from that working checkout.
+
+From a prepared working checkout:
+
+   nix --extra-experimental-features 'nix-command flakes' flake check --no-write-lock-file
+   nix --extra-experimental-features 'nix-command flakes' build --no-write-lock-file --no-link .#nixosConfigurations.desktop.config.system.build.toplevel
+   sudo nixos-rebuild switch --option experimental-features 'nix-command flakes' --no-write-lock-file --flake .#desktop
+
+After applying, verify your account and administrative access before rebooting. Keep
+the current terminal open until a new login succeeds.

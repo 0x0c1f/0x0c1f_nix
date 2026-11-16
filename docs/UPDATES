@@ -1,0 +1,13 @@
+Updates
+=======
+
+Update system inputs and Flatpak apps separately.
+
+System and application updates are separate. Preserve system.stateVersion; it is a
+compatibility baseline, not an instruction to upgrade packages. From your writable
+checkout, update inputs with nix flake update, then check and build before applying.
+Keep a backup or recorded copy of the previous lock. Use the existing configured input
+branch unless intentionally migrating.
+
+Update Flatpaks through GNOME Software or sudo flatpak update --system. System
+rollback does not restore Flatpak apps or app data.

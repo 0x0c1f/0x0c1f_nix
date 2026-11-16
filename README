@@ -1,0 +1,28 @@
+nixos-config
+============
+
+GNOME provides the desktop and Software center. NixOS manages hardware, core
+tools and services; Flatpak supplies standalone graphical apps. System and
+application updates are separate and manual.
+
+Prepare your machine
+--------------------
+
+Review hosts/desktop/settings.nix and preserve your actual hardware module,
+boot configuration, account and installed system.stateVersion baseline.
+Never copy another machine's filesystem identifiers.
+
+Use bash scripts/prepare.sh --help for the required preparation arguments.
+Prepare a writable checkout, then follow setup (see docs/SETUP) to check, build
+and apply it. Preparation locks dependencies without activating the system.
+
+After applying, verify a new login and administrative access before rebooting.
+Keep the current terminal open until those checks pass.
+
+Guides
+------
+
+Read setup (see docs/SETUP) before applying this configuration.
+
+A README or host-side check does not establish native build, activation or
+boot success on your machine.
