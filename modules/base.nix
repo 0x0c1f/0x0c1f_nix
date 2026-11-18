@@ -1,7 +1,7 @@
 { config, pkgs, ... }:
 {
   nix.settings.experimental-features = [ "nix-command" "flakes" ];
-  nixpkgs.config.allowUnfree = false;
+  nixpkgs.config.allowUnfree = true;
 
   networking.networkmanager.enable = true;
   networking.firewall.enable = true;

@@ -5,6 +5,7 @@
     # Host settings define machine.username, which the shared modules use for the login account.
     ./hosts/desktop/settings.nix
     ./modules/base.nix
+    ./modules/ssh.nix
     ./modules/gnome.nix
     ./modules/flatpak.nix
   ];

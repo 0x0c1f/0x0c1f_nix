@@ -20,7 +20,12 @@ let
     && config.networking.networkmanager.enable
     && config.networking.firewall.enable
     && !config.system.autoUpgrade.enable
-    && !config.nixpkgs.config.allowUnfree
+    && config.nixpkgs.config.allowUnfree
+
+    # SSH must be reachable through the firewall on port 22.
+    && config.services.openssh.enable
+    && config.services.openssh.openFirewall
+    && builtins.elem 22 config.networking.firewall.allowedTCPPorts
     && builtins.hasAttr config.machine.username config.users.users
     && builtins.hasAttr "flatpak-flathub" config.systemd.services
     && builtins.elem "gnome-console" names
