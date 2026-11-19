@@ -8,11 +8,9 @@ Use the installed target system and its existing normal account. Preserve the ac
 hardware module, boot disk settings and system.stateVersion baseline. Never substitute
 another machine's filesystem identifiers.
 
-Review hosts/desktop/settings.nix and the supplied modules. Prepare a new writable
-checkout using bash scripts/prepare.sh; use --help for required hardware, boot
-mode and compatibility-baseline arguments. The baseline must match the installed
-system. Preparation locks dependencies without activation. Then use the
-check/build/apply commands below from that working checkout.
+Copy your generated hardware module to hardware-configuration.nix. Review the
+account, hostname and boot loader in configuration.nix before building. Generate the
+real lock using nix flake lock; do not invent lock hashes.
 
 From a prepared working checkout:
 

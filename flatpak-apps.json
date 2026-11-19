@@ -1,0 +1,9 @@
+{
+  "apps": [
+    {
+      "name": "Google Chrome",
+      "appId": "com.google.Chrome",
+      "remote": "flathub"
+    }
+  ]
+}
