@@ -65,7 +65,7 @@
   security.rtkit.enable = true;
 
   # Preserve the existing machine login instead of replacing it with another user.
-  users.users.nixos = {
+  users.users.linux = {
     isNormalUser = true;
     extraGroups = [ "networkmanager" "wheel" ];
   };
