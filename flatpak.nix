@@ -17,34 +17,36 @@ in
 {
   services.flatpak.enable = true;
 
-  systemd.services.flatpak-add-remote = {
-    description = "Register Flathub";
-    wantedBy = [ "multi-user.target" ];
-    wants = [ "network-online.target" ];
-    after = [ "network-online.target" ];
-    path = [ pkgs.flatpak ];
-    serviceConfig = {
-      Type = "oneshot";
-      RemainAfterExit = true;
-    };
-    script = ''
-      flatpak remote-add --system --if-not-exists flathub \
-        https://dl.flathub.org/repo/flathub.flatpakrepo
-    '';
-  };
-
-  systemd.services.flatpak-install-apps = {
-    description = "Install configured Flatpak applications";
-    wantedBy = [ "multi-user.target" ];
-    requires = [ "flatpak-add-remote.service" ];
-    after = [ "flatpak-add-remote.service" ];
-    path = [ pkgs.flatpak ];
-    serviceConfig = {
-      Type = "oneshot";
-      RemainAfterExit = true;
+  systemd.services = {
+    flatpak-add-remote = {
+      description = "Register Flathub";
+      wantedBy = [ "multi-user.target" ];
+      wants = [ "network-online.target" ];
+      after = [ "network-online.target" ];
+      path = [ pkgs.flatpak ];
+      serviceConfig = {
+        Type = "oneshot";
+        RemainAfterExit = true;
+      };
+      script = ''
+        flatpak remote-add --system --if-not-exists flathub \
+          https://dl.flathub.org/repo/flathub.flatpakrepo
+      '';
     };
 
-    # Install missing apps; do not update installed apps or remove other apps.
-    script = lib.concatMapStringsSep "\n" installApp flatpakApps.apps;
+    flatpak-install-apps = {
+      description = "Install configured Flatpak applications";
+      wantedBy = [ "multi-user.target" ];
+      requires = [ "flatpak-add-remote.service" ];
+      after = [ "flatpak-add-remote.service" ];
+      path = [ pkgs.flatpak ];
+      serviceConfig = {
+        Type = "oneshot";
+        RemainAfterExit = true;
+      };
+
+      # Install missing apps; do not update installed apps or remove other apps.
+      script = lib.concatMapStringsSep "\n" installApp flatpakApps.apps;
+    };
   };
 }
